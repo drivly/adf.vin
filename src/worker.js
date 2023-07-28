@@ -26,7 +26,7 @@ export default {
 		return new Response(
 			`Try making requests to:
       <ul>
-      <li><code><a href="/api/todos">/api/todos</a></code></li>
+      <li><code><a href="/api/">/api/</a></code></li>
 			</ul>`,
 			{ headers: { 'Content-Type': 'text/html' } }
 		);

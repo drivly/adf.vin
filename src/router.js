@@ -49,7 +49,7 @@ router.get('/api', (request) => {
 </adf>`, {
 		headers: {
 			'Content-Type': 'application/x-adf+xml',
-			'Content-Disposition': `inline; filename="${created}_${firstName}_${lastName}.adf"`
+			'Content-Disposition': `inline; filename="${createQuery}_${firstName || 'first'}_${lastName || 'last'}.adf"`
 		}
 	});
 });
