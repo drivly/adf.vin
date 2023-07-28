@@ -20,11 +20,12 @@ router.get('/api', (request) => {
 		created,
 	} = request.query;
 	const yearQuery = buildYearString(yearLower, yearUpper, year)
+	const createQuery = created || new Date().toISOString()
 	return new Response(`<?XML VERSION "1.0"?>
 <?ADF VERSION "1.0"?>
 <adf>
 	<prospect>
-		<requestdate>${created || new Date().toISOString()}</requestdate>
+		<requestdate>${createQuery}</requestdate>
 		<vehicle>{${yearQuery ? (`
 			<year>${yearQuery}</year>`) : ''}${make ? (`
 			<make>${make}</make>`) : ''}${model ? (`
@@ -45,14 +46,23 @@ router.get('/api', (request) => {
 			</contact>
 		</vendor>
 	</prospect>
-</adf>`, { headers: { 'Content-Type': 'application/x-adf+xml' } });
+</adf>`, {
+		headers: {
+			'Content-Type': 'application/x-adf+xml',
+			'Content-Disposition': `inline; filename="${created}_${firstName}_${lastName}.adf"`
+		}
+	});
 });
 
 // POST to the collection (we'll use async here)
 router.post('/api', async (request) => {
 	const content = await request.text();
 
-	return new Response(content, { headers: { 'Content-Type': 'application/x-adf+xml' } });
+	return new Response(content, {
+		headers: {
+			'Content-Type': 'application/x-adf+xml',
+		}
+	});
 });
 
 // 404 for everything else
