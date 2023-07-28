@@ -11,6 +11,7 @@ router.get('/api', (request) => {
 		year,
 		make,
 		model,
+		trim,
 		firstName,
 		lastName,
 		phone,
@@ -26,7 +27,8 @@ router.get('/api', (request) => {
 			<vehicle>
 				<year>${buildYearString(yearLower, yearUpper, year)}</year>${make ? (`
 				<make>${make}</make>`) : ''}${model ? (`
-				<model>${model}</model>`) : ''}
+				<model>${model}</model>`) : ''}${trim ? (`
+				<trim>${trim}</trim>`) : ''}
 			</vehicle>
 			<customer>
 				<contact>${firstName ? (`
