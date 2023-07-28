@@ -1,6 +1,6 @@
 name = "adf-vin"
 account_id = "b6641681fe423910342b9ffa1364c76d"
-route = { pattern = "*/*", zone_id = "bf0362b00f795ce8f9e9a86104c05cf3" }
+route = { pattern = "*/*", zone_name = "adf.vin" }
 main = "src/worker.js"
 compatibility_date = "2023-07-24"
 
