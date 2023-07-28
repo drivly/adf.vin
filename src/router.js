@@ -14,6 +14,8 @@ router.get('/api', (request) => {
 		firstName,
 		lastName,
 		phone,
+		email,
+		vendor,
 		created,
 	} = request.query;
 	return new Response(`<?XML VERSION "1.0"?>
@@ -22,19 +24,21 @@ router.get('/api', (request) => {
 		<prospect>
 			<requestdate>${created}</requestdate>
 			<vehicle>
-				<year>${buildYearString(yearLower, yearUpper, year)}</year>
-				<make>${make}</make>
-				<model>${model}</model>
+				<year>${buildYearString(yearLower, yearUpper, year)}</year>${make ? (`
+				<make>${make}</make>') : ''}${model ? (`
+				<model>${model}</model>') : ''}
 			</vehicle>
 			<customer>
-				<contact>
-					<name part="full">${firstName} ${lastName}</name>
-					<phone>${phone}</phone>
+				<contact>${firstName ? (`
+					<name part="first">` + firstName + '</name>') : ''}${lastName ? (`
+					<name part="last">${lastName}</name>`) : ''}${phone ? (`
+					<phone>${phone}</phone>`) : ''}${email ? (`
+					<email>${email}</email>`) : ''}
 				</contact>
 			</customer>
 			<vendor>
 				<contact>
-					<name part="full">Drivly, Inc.</name>
+					<name part="full">${vendor || 'Cloud Motors'}</name>
 				</contact>
 			</vendor>
 		</prospect>
