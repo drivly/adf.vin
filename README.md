@@ -6,7 +6,16 @@ The Auto Lead Data Format (ADF) is a standard for describing the information nee
 
 ```javascript
 fetch(
-	'https://adf.vin/api?firstName=John&lastName=Doe&email=john.doe%40example.com&phone=%2B15555555555&year=2018&make=Ford&model=F-150&trim=XL'
+	'https://adf.vin/api?' +
+		`created=${encodeURIComponent(new Date().toISOString())}&` +
+		'firstName=John&' +
+		'lastName=Doe&' +
+		'email=john.doe%40example.com&' +
+		'phone=%2B15555555555&' +
+		'year=2018&' +
+		'make=Ford&' +
+		'model=F-150&' +
+		'trim=XL'
 )
 	.then((response) => response.text())
 	.then((xml) => console.log(xml));
