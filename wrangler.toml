@@ -1,4 +1,5 @@
 name = "adf-vin"
+route = { pattern = "*/*", zone_id = "43593706e6de79a1f69ee9660b52ae33" }
 main = "src/worker.js"
 compatibility_date = "2023-07-24"
 
