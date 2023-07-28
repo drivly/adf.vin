@@ -19,32 +19,33 @@ router.get('/api', (request) => {
 		vendor,
 		created,
 	} = request.query;
+	const yearQuery = buildYearString(yearLower, yearUpper, year)
 	return new Response(`<?XML VERSION "1.0"?>
-	<?ADF VERSION "1.0"?>
-	<adf>
-		<prospect>
-			<requestdate>${created}</requestdate>
-			<vehicle>
-				<year>${buildYearString(yearLower, yearUpper, year)}</year>${make ? (`
-				<make>${make}</make>`) : ''}${model ? (`
-				<model>${model}</model>`) : ''}${trim ? (`
-				<trim>${trim}</trim>`) : ''}
-			</vehicle>
-			<customer>
-				<contact>${firstName ? (`
-					<name part="first">` + firstName + '</name>') : ''}${lastName ? (`
-					<name part="last">${lastName}</name>`) : ''}${phone ? (`
-					<phone>${phone}</phone>`) : ''}${email ? (`
-					<email>${email}</email>`) : ''}
-				</contact>
-			</customer>
-			<vendor>
-				<contact>
-					<name part="full">${vendor || 'Cloud Motors'}</name>
-				</contact>
-			</vendor>
-		</prospect>
-	</adf>`, { headers: { 'Content-Type': 'application/x-adf+xml' } });
+<?ADF VERSION "1.0"?>
+<adf>
+	<prospect>
+		<requestdate>${created || new Date().toISOString()}</requestdate>
+		<vehicle>{${yearQuery ? (`
+			<year>${yearQuery}</year>`) : ''}${make ? (`
+			<make>${make}</make>`) : ''}${model ? (`
+			<model>${model}</model>`) : ''}${trim ? (`
+			<trim>${trim}</trim>`) : ''}
+		</vehicle>
+		<customer>
+			<contact>${firstName ? (`
+				<name part="first">` + firstName + '</name>') : ''}${lastName ? (`
+				<name part="last">${lastName}</name>`) : ''}${phone ? (`
+				<phone>${phone}</phone>`) : ''}${email ? (`
+				<email>${email}</email>`) : ''}
+			</contact>
+		</customer>
+		<vendor>
+			<contact>
+				<name part="full">${vendor || 'Cloud Motors'}</name>
+			</contact>
+		</vendor>
+	</prospect>
+</adf>`, { headers: { 'Content-Type': 'application/x-adf+xml' } });
 });
 
 // POST to the collection (we'll use async here)
