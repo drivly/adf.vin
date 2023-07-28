@@ -20,7 +20,7 @@ router.get('/api', (request) => {
 		created,
 	} = request.query;
 	const yearQuery = buildYearString(yearLower, yearUpper, year)
-	const createQuery = created || new Date().toISOString()
+	const createQuery = decodeURIComponent(created) || new Date().toISOString()
 	return new Response(`<?XML VERSION "1.0"?>
 <?ADF VERSION "1.0"?>
 <adf>
@@ -28,21 +28,21 @@ router.get('/api', (request) => {
 		<requestdate>${createQuery}</requestdate>
 		<vehicle>{${yearQuery ? (`
 			<year>${yearQuery}</year>`) : ''}${make ? (`
-			<make>${make}</make>`) : ''}${model ? (`
-			<model>${model}</model>`) : ''}${trim ? (`
-			<trim>${trim}</trim>`) : ''}
+			<make>${decodeURIComponent(make)}</make>`) : ''}${model ? (`
+			<model>${decodeURIComponent(model)}</model>`) : ''}${trim ? (`
+			<trim>${decodeURIComponent(trim)}</trim>`) : ''}
 		</vehicle>
 		<customer>
 			<contact>${firstName ? (`
-				<name part="first">` + firstName + '</name>') : ''}${lastName ? (`
-				<name part="last">${lastName}</name>`) : ''}${phone ? (`
-				<phone>${phone}</phone>`) : ''}${email ? (`
-				<email>${email}</email>`) : ''}
+				<name part="first">` + decodeURIComponent(firstName) + '</name>') : ''}${lastName ? (`
+				<name part="last">${decodeURIComponent(lastName)}</name>`) : ''}${phone ? (`
+				<phone>${decodeURIComponent(phone)}</phone>`) : ''}${email ? (`
+				<email>${decodeURIComponent(email)}</email>`) : ''}
 			</contact>
 		</customer>
 		<vendor>
 			<contact>
-				<name part="full">${vendor || 'Cloud Motors'}</name>
+				<name part="full">${decodeURIComponent(vendor) || 'Cloud Motors'}</name>
 			</contact>
 		</vendor>
 	</prospect>
@@ -69,9 +69,9 @@ router.post('/api', async (request) => {
 router.all('*', () => new Response('Not Found.', { status: 404 }));
 
 function buildYearString(yearLower, yearUpper, year) {
-	return !yearLower && !yearUpper ? year?.toString() :
-		yearLower === yearUpper ? yearLower?.toString() :
-			`${yearLower}-${yearUpper}`
+	return !yearLower && !yearUpper ? decodeURIComponent(year) :
+		yearLower === yearUpper ? decodeURIComponent(yearLower) :
+			`${decodeURIComponent(yearLower)}-${decodeURIComponent(yearUpper)}`
 }
 
 export default router;
