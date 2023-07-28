@@ -48,8 +48,9 @@ router.get('/api', (request) => {
 	</prospect>
 </adf>`, {
 		headers: {
-			'Content-Type': 'application/x-adf+xml',
-			'Content-Disposition': `inline; filename="${createQuery.replace(/:/g,'_')}_${firstName || 'first'}_${lastName || 'last'}.adf"`
+			'Content-Type': 'application/xml',
+			//'Content-Type': 'application/x-adf+xml',
+			//'Content-Disposition': `inline; filename="${createQuery.replace(/:/g,'_')}_${firstName || 'first'}_${lastName || 'last'}.adf"`
 		}
 	});
 });
