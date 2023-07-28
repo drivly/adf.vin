@@ -20,7 +20,7 @@ router.get('/api', (request) => {
 		created,
 	} = request.query;
 	const yearQuery = buildYearString(yearLower, yearUpper, year)
-	const createQuery = decodeURIComponent(created) || new Date().toISOString()
+	const createQuery = created && decodeURIComponent(created) || new Date().toISOString()
 	return new Response(`<?XML VERSION "1.0"?>
 <?ADF VERSION "1.0"?>
 <adf>
@@ -42,7 +42,7 @@ router.get('/api', (request) => {
 		</customer>
 		<vendor>
 			<contact>
-				<name part="full">${decodeURIComponent(vendor) || 'Cloud Motors'}</name>
+				<name part="full">${vendor && decodeURIComponent(vendor) || 'Cloud Motors'}</name>
 			</contact>
 		</vendor>
 	</prospect>
