@@ -29,7 +29,8 @@ router.get('/api', (request) => {
 	} = request.query;
 	const yearQuery = buildYearString(yearLower, yearUpper, year);
 	const createQuery = decode(created) || new Date().toISOString();
-	return new Response(`<?XML VERSION "1.0"?>
+	return new Response(
+		`<?XML VERSION "1.0"?>
 <?ADF VERSION "1.0"?>
 <adf>
 	<prospect>${id ? `
@@ -62,25 +63,25 @@ router.get('/api', (request) => {
 			</contact>
 		</vendor>
 	</prospect>
-</adf>`, {
-		headers: {
-			'Content-Type': 'application/x-adf+xml',
-			'Content-Disposition': `inline; filename="${createQuery.replace(/:/g, '_')}_${firstName || 'first'}_${lastName || 'last'}.adf"`,
-		}
-	});
+</adf>`,
+		{
+			headers: {
+				'Content-Type': 'application/x-adf+xml',
+				'Content-Disposition': `inline; filename="${createQuery.replace(/:/g, '_')}_${firstName || 'first'}_${lastName || 'last'}.adf"`,
+			},
+		},
+	);
 });
 
 // 404 for everything else
 router.all('*', () => new Response('Not Found.', { status: 404 }));
 
 function buildYearString(yearLower, yearUpper, year) {
-	return !yearLower && !yearUpper ? decode(year) :
-		yearLower === yearUpper ? decodeURIComponent(yearLower) :
-			`${decode(yearLower)}-${decode(yearUpper)}`;
+	return !yearLower && !yearUpper ? decode(year) : yearLower === yearUpper ? decodeURIComponent(yearLower) : `${decode(yearLower)}-${decode(yearUpper)}`;
 }
 
 function decode(s) {
-	return s && decodeURIComponent(s) || undefined;
+	return (s && decodeURIComponent(s)) || undefined;
 }
 
 export default router;
