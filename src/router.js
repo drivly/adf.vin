@@ -5,27 +5,27 @@ const router = Router();
 // GET collection index
 router.get('/api', (request) => {
 	const {
-		id,
-		idSource,
-		interest,
-		firstName,
-		lastName,
-		phone,
-		email,
-		timeframe,
-		customerComments,
-		newUsedStatus,
-		yearLower,
-		yearUpper,
-		year,
-		bodyStyle,
-		make,
-		model,
-		trim,
-		transmission,
-		vehicleComments,
-		vendor,
-		created,
+		id, // The internal ID of the lead
+		idSource, // The source of the lead ID
+		interest, // The type of interest the customer has (buy, sell, trade-in, lease, test drive)
+		firstName, // The customer's first name
+		lastName, // The customer's last name
+		phone, // The customer's phone number
+		email, // The customer's email address
+		timeframe, // The customer's timeframe for purchase
+		customerComments, // Any comments the customer has
+		newUsedStatus, // The status of the vehicle (new, used)
+		yearLower, // The lower bound of the vehicle's year
+		yearUpper, // The upper bound of the vehicle's year
+		year, // The vehicle's year
+		bodyStyle, // The vehicle's body style
+		make, // The vehicle's make
+		model, // The vehicle's model
+		trim, // The vehicle's trim level
+		transmission, // The vehicle's transmission type (usually A for automatic or M for manual)
+		vehicleComments, // Any comments about the vehicle
+		vendor, // The name of the vendor
+		created, // The date the lead was created in ISO 8601 format
 	} = request.query;
 	const yearQuery = buildYearString(yearLower, yearUpper, year);
 	const createQuery = decode(created) || new Date().toISOString();
