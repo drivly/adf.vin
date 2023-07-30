@@ -28,12 +28,13 @@ router.get('/api', (request) => {
 		created,
 	} = request.query;
 	const yearQuery = buildYearString(yearLower, yearUpper, year)
+	const createQuery = decode(created) || new Date().toISOString()
 	return new Response(`<?XML VERSION "1.0"?>
 <?ADF VERSION "1.0"?>
 <adf>
 	<prospect>${id ? `
 		<id sequence="1"${idSource ? ` source="${decodeURIComponent(idSource)}"` : ''}>${decodeURIComponent(id)}</id>` : ''}
-		<requestdate>${decode(created) || new Date().toISOString()}</requestdate>
+		<requestdate>${createQuery}</requestdate>
 		<vehicle${interest ? ` interest="${decodeURIComponent(interest)}"` : ''}${newUsedStatus ? ` status="${decodeURIComponent(newUsedStatus)}"` : ''}>{${yearQuery ? (`
 			<year>${yearQuery}</year>`) : ''}${make ? (`
 			<make>${decodeURIComponent(make)}</make>`) : ''}${model ? (`
