@@ -1,6 +1,6 @@
 # ADF.vin
 
-The Auto Lead Data Format (ADF) is a standard for describing the information needed by a car dealer to provide a customer with a quote for a vehicle and related products or services. The ADF standard was developed by a consortium of companies in the automotive retail space, and this ultra-lightweight library provides a simple way to generate ADF XML documents.
+The [Auto Lead Data Format (ADF)](https://en.wikipedia.org/wiki/Auto-lead_Data_Format) is a standard for describing the information needed by a car dealer to provide a customer with a quote for a vehicle and related products or services. The ADF standard was developed by a consortium of companies in the automotive retail space, and this ultra-lightweight library provides a simple way to generate ADF XML documents.
 
 The API currently supports the following fields:
 
