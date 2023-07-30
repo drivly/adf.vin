@@ -1,21 +1,27 @@
 import { Router } from 'itty-router';
 
-// now let's create a router (note the lack of "new")
 const router = Router();
 
 // GET collection index
 router.get('/api', (request) => {
 	const {
-		yearLower,
-		yearUpper,
-		year,
-		make,
-		model,
-		trim,
+		interest,
 		firstName,
 		lastName,
 		phone,
 		email,
+		timeframe,
+		customerComments,
+		vehicleComments,
+		newUsedStatus,
+		yearLower,
+		yearUpper,
+		year,
+		bodyStyle,
+		make,
+		model,
+		trim,
+		transmission,
 		vendor,
 		created,
 	} = request.query;
@@ -26,18 +32,25 @@ router.get('/api', (request) => {
 <adf>
 	<prospect>
 		<requestdate>${createQuery}</requestdate>
-		<vehicle>{${yearQuery ? (`
+		<vehicle${interest ? ` interest="${interest}"` : ''}${newUsedStatus ? ` status="${newUsedStatus}"` : ''}>{${yearQuery ? (`
 			<year>${yearQuery}</year>`) : ''}${make ? (`
 			<make>${decodeURIComponent(make)}</make>`) : ''}${model ? (`
 			<model>${decodeURIComponent(model)}</model>`) : ''}${trim ? (`
-			<trim>${decodeURIComponent(trim)}</trim>`) : ''}
+			<trim>${decodeURIComponent(trim)}</trim>`) : ''}${bodyStyle ? (`
+			<bodystyle>${decodeURIComponent(bodyStyle)}</bodystyle>`) : ''}${transmission ? (`
+			<transmission>${decodeURIComponent(transmission)}</transmission>`) : ''}${vehicleComments ? (`
+			<comments>${decodeURIComponent(vehicleComments)}</comments>`) : ''}
 		</vehicle>
 		<customer>
 			<contact>${firstName ? (`
-				<name part="first">` + decodeURIComponent(firstName) + '</name>') : ''}${lastName ? (`
+				<name part="first">${decodeURIComponent(firstName)}</name>`) : ''}${lastName ? (`
 				<name part="last">${decodeURIComponent(lastName)}</name>`) : ''}${phone ? (`
 				<phone>${decodeURIComponent(phone)}</phone>`) : ''}${email ? (`
-				<email>${decodeURIComponent(email)}</email>`) : ''}
+				<email>${decodeURIComponent(email)}</email>`) : ''}${timeframe ? (`
+				<timeframe>
+					<description>${decodeURIComponent(timeframe)}</description>
+				</timeframe>`) : ''}${customerComments ? (`
+				<comments>${decodeURIComponent(customerComments)}</comments>`) : ''}
 			</contact>
 		</customer>
 		<vendor>
@@ -48,9 +61,8 @@ router.get('/api', (request) => {
 	</prospect>
 </adf>`, {
 		headers: {
-			'Content-Type': 'application/xml',
-			//'Content-Type': 'application/x-adf+xml',
-			//'Content-Disposition': `inline; filename="${createQuery.replace(/:/g,'_')}_${firstName || 'first'}_${lastName || 'last'}.adf"`
+			'Content-Type': 'application/x-adf+xml',
+			'Content-Disposition': `inline; filename="${createQuery.replace(/:/g, '_')}_${firstName || 'first'}_${lastName || 'last'}.adf"`
 		}
 	});
 });
