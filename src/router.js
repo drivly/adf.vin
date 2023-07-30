@@ -36,25 +36,25 @@ router.get('/api', (request) => {
 	<prospect>${id ? `
 		<id sequence="1"${idSource ? ` source="${decodeURIComponent(idSource)}"` : ''}>${decodeURIComponent(id)}</id>` : ''}
 		<requestdate>${createQuery}</requestdate>
-		<vehicle${interest ? ` interest="${decodeURIComponent(interest)}"` : ''}${newUsedStatus ? ` status="${decodeURIComponent(newUsedStatus)}"` : ''}>{${yearQuery ? (`
-			<year>${yearQuery}</year>`) : ''}${make ? (`
-			<make>${decodeURIComponent(make)}</make>`) : ''}${model ? (`
-			<model>${decodeURIComponent(model)}</model>`) : ''}${trim ? (`
-			<trim>${decodeURIComponent(trim)}</trim>`) : ''}${bodyStyle ? (`
-			<bodystyle>${decodeURIComponent(bodyStyle)}</bodystyle>`) : ''}${transmission ? (`
-			<transmission>${decodeURIComponent(transmission)}</transmission>`) : ''}${vehicleComments ? (`
-			<comments>${decodeURIComponent(vehicleComments)}</comments>`) : ''}
+		<vehicle${interest ? ` interest="${decodeURIComponent(interest)}"` : ''}${newUsedStatus ? ` status="${decodeURIComponent(newUsedStatus)}"` : ''}>{${yearQuery ? `
+			<year>${yearQuery}</year>` : ''}${make ? `
+			<make>${decodeURIComponent(make)}</make>` : ''}${model ? `
+			<model>${decodeURIComponent(model)}</model>` : ''}${trim ? `
+			<trim>${decodeURIComponent(trim)}</trim>` : ''}${bodyStyle ? `
+			<bodystyle>${decodeURIComponent(bodyStyle)}</bodystyle>` : ''}${transmission ? `
+			<transmission>${decodeURIComponent(transmission)}</transmission>` : ''}${vehicleComments ? `
+			<comments>${decodeURIComponent(vehicleComments)}</comments>` : ''}
 		</vehicle>
 		<customer>
-			<contact>${firstName ? (`
-				<name part="first">${decodeURIComponent(firstName)}</name>`) : ''}${lastName ? (`
-				<name part="last">${decodeURIComponent(lastName)}</name>`) : ''}${phone ? (`
-				<phone>${decodeURIComponent(phone)}</phone>`) : ''}${email ? (`
-				<email>${decodeURIComponent(email)}</email>`) : ''}${timeframe ? (`
+			<contact>${firstName ? `
+				<name part="first">${decodeURIComponent(firstName)}</name>` : ''}${lastName ? `
+				<name part="last">${decodeURIComponent(lastName)}</name>` : ''}${phone ? `
+				<phone>${decodeURIComponent(phone)}</phone>` : ''}${email ? `
+				<email>${decodeURIComponent(email)}</email>` : ''}${timeframe ? `
 				<timeframe>
 					<description>${decodeURIComponent(timeframe)}</description>
-				</timeframe>`) : ''}${customerComments ? (`
-				<comments>${decodeURIComponent(customerComments)}</comments>`) : ''}
+				</timeframe>` : ''}${customerComments ? `
+				<comments>${decodeURIComponent(customerComments)}</comments>` : ''}
 			</contact>
 		</customer>
 		<vendor>
