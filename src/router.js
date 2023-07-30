@@ -5,6 +5,8 @@ const router = Router();
 // GET collection index
 router.get('/api', (request) => {
 	const {
+		id,
+		idSource,
 		interest,
 		firstName,
 		lastName,
@@ -12,7 +14,6 @@ router.get('/api', (request) => {
 		email,
 		timeframe,
 		customerComments,
-		vehicleComments,
 		newUsedStatus,
 		yearLower,
 		yearUpper,
@@ -22,6 +23,7 @@ router.get('/api', (request) => {
 		model,
 		trim,
 		transmission,
+		vehicleComments,
 		vendor,
 		created,
 	} = request.query;
@@ -29,7 +31,8 @@ router.get('/api', (request) => {
 	return new Response(`<?XML VERSION "1.0"?>
 <?ADF VERSION "1.0"?>
 <adf>
-	<prospect>
+	<prospect>${id ? `
+		<id sequence="1"${idSource ? ` source="${decodeURIComponent(idSource)}"` : ''}>${decodeURIComponent(id)}</id>` : ''}
 		<requestdate>${decode(created) || new Date().toISOString()}</requestdate>
 		<vehicle${interest ? ` interest="${decodeURIComponent(interest)}"` : ''}${newUsedStatus ? ` status="${decodeURIComponent(newUsedStatus)}"` : ''}>{${yearQuery ? (`
 			<year>${yearQuery}</year>`) : ''}${make ? (`
