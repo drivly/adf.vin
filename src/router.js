@@ -36,7 +36,7 @@ router.get('/api', (request) => {
 	<prospect>${id ? `
 		<id sequence="1"${idSource ? ` source="${decodeURIComponent(idSource)}"` : ''}>${decodeURIComponent(id)}</id>` : ''}
 		<requestdate>${createQuery}</requestdate>
-		<vehicle${interest ? ` interest="${decodeURIComponent(interest)}"` : ''}${newUsedStatus ? ` status="${decodeURIComponent(newUsedStatus)}"` : ''}>{${yearQuery ? `
+		<vehicle${interest ? ` interest="${decodeURIComponent(interest)}"` : ''}${newUsedStatus ? ` status="${decodeURIComponent(newUsedStatus)}"` : ''}>${yearQuery ? `
 			<year>${yearQuery}</year>` : ''}${make ? `
 			<make>${decodeURIComponent(make)}</make>` : ''}${model ? `
 			<model>${decodeURIComponent(model)}</model>` : ''}${trim ? `
