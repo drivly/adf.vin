@@ -34,27 +34,27 @@ router.get('/api', (request) => {
 <?ADF VERSION "1.0"?>
 <adf>
 	<prospect>${id ? `
-		<id sequence="1"${idSource ? ` source="${decodeURIComponent(idSource)}"` : ''}>${decodeURIComponent(id)}</id>` : ''}
+		<id sequence="1"${idSource ? ` source="${sanitize(idSource)}"` : ''}>${sanitize(id)}</id>` : ''}
 		<requestdate>${createQuery}</requestdate>
-		<vehicle${interest ? ` interest="${decodeURIComponent(interest)}"` : ''}${newUsedStatus ? ` status="${decodeURIComponent(newUsedStatus)}"` : ''}>${yearQuery ? `
+		<vehicle${interest ? ` interest="${sanitize(interest)}"` : ''}${newUsedStatus ? ` status="${sanitize(newUsedStatus)}"` : ''}>${yearQuery ? `
 			<year>${yearQuery}</year>` : ''}${make ? `
-			<make>${decodeURIComponent(make)}</make>` : ''}${model ? `
-			<model>${decodeURIComponent(model)}</model>` : ''}${trim ? `
-			<trim>${decodeURIComponent(trim)}</trim>` : ''}${bodyStyle ? `
-			<bodystyle>${decodeURIComponent(bodyStyle)}</bodystyle>` : ''}${transmission ? `
-			<transmission>${decodeURIComponent(transmission)}</transmission>` : ''}${vehicleComments ? `
-			<comments>${decodeURIComponent(vehicleComments)}</comments>` : ''}
+			<make>${sanitize(make)}</make>` : ''}${model ? `
+			<model>${sanitize(model)}</model>` : ''}${trim ? `
+			<trim>${sanitize(trim)}</trim>` : ''}${bodyStyle ? `
+			<bodystyle>${sanitize(bodyStyle)}</bodystyle>` : ''}${transmission ? `
+			<transmission>${sanitize(transmission)}</transmission>` : ''}${vehicleComments ? `
+			<comments>${sanitize(vehicleComments)}</comments>` : ''}
 		</vehicle>
 		<customer>
 			<contact>${firstName ? `
-				<name part="first">${decodeURIComponent(firstName)}</name>` : ''}${lastName ? `
-				<name part="last">${decodeURIComponent(lastName)}</name>` : ''}${phone ? `
-				<phone>${decodeURIComponent(phone)}</phone>` : ''}${email ? `
-				<email>${decodeURIComponent(email)}</email>` : ''}${timeframe ? `
+				<name part="first">${sanitize(firstName)}</name>` : ''}${lastName ? `
+				<name part="last">${sanitize(lastName)}</name>` : ''}${phone ? `
+				<phone>${sanitize(phone)}</phone>` : ''}${email ? `
+				<email>${sanitize(email)}</email>` : ''}${timeframe ? `
 				<timeframe>
-					<description>${decodeURIComponent(timeframe)}</description>
+					<description>${sanitize(timeframe)}</description>
 				</timeframe>` : ''}${customerComments ? `
-				<comments>${decodeURIComponent(customerComments)}</comments>` : ''}
+				<comments>${sanitize(customerComments)}</comments>` : ''}
 			</contact>
 		</customer>
 		<vendor>
@@ -81,7 +81,11 @@ function buildYearString(yearLower, yearUpper, year) {
 }
 
 function decode(s) {
-	return (s && decodeURIComponent(s)) || undefined;
+	return s ? sanitize(s) : undefined;
+}
+
+function sanitize(str) {
+	return str ? String(decodeURIComponent(str)).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') : undefined
 }
 
 export default router;
