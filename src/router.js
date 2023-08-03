@@ -49,7 +49,7 @@ router.get('/api', (request) => {
 			<contact>${firstName ? `
 				<name part="first">${sanitize(firstName)}</name>` : ''}${lastName ? `
 				<name part="last">${sanitize(lastName)}</name>` : ''}${phone ? `
-				<phone type="voice">${sanitize(phone)}</phone>` : ''}${email ? `
+				<phone>${sanitize(phone)}</phone>` : ''}${email ? `
 				<email>${sanitize(email)}</email>` : ''}
 			</contact>${timeframe ? `
 			<timeframe>
