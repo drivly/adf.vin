@@ -49,13 +49,13 @@ router.get('/api', (request) => {
 			<contact>${firstName ? `
 				<name part="first">${sanitize(firstName)}</name>` : ''}${lastName ? `
 				<name part="last">${sanitize(lastName)}</name>` : ''}${phone ? `
-				<phone>${sanitize(phone)}</phone>` : ''}${email ? `
-				<email>${sanitize(email)}</email>` : ''}${timeframe ? `
-				<timeframe>
-					<description>${sanitize(timeframe)}</description>
-				</timeframe>` : ''}${customerComments ? `
-				<comments>${sanitize(customerComments)}</comments>` : ''}
-			</contact>
+				<phone type="voice">${sanitize(phone)}</phone>` : ''}${email ? `
+				<email>${sanitize(email)}</email>` : ''}
+			</contact>${timeframe ? `
+			<timeframe>
+				<description>${sanitize(timeframe)}</description>
+			</timeframe>` : ''}${customerComments ? `
+			<comments>${sanitize(customerComments)}</comments>` : ''}
 		</customer>
 		<vendor>
 			<contact>
