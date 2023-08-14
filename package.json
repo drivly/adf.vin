@@ -6,8 +6,10 @@
     "deploy": "wrangler deploy",
     "start": "wrangler dev"
   },
+  "dependencies": {
+    "itty-router": "^4.0.14"
+  }
   "devDependencies": {
-    "itty-router": "^4.0.14",
     "prettier": "^3.0.0",
     "wrangler": "^3.0.0"
   }
